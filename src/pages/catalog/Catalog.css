@@ -1,0 +1,104 @@
+/* Стили для контейнера категорий */
+.categories {
+  position: fixed; /* Фиксируем контейнер */
+  top: 100px; /* Устанавливаем отступ от верхней границы экрана */
+  left: 20px; /* Устанавливаем отступ слева */
+  display: flex;
+  flex-direction: column; /* Размещаем категории вертикально */
+  gap: 20px;
+  z-index: 10; /* Чтобы контейнер всегда был поверх других элементов */
+  padding: 10px 0; /* Добавляем немного отступов для удобства */
+  background-color: transparent; /* Делаем фон прозрачным */
+  box-shadow: none; /* Убираем тень, чтобы фон сливался */
+}
+
+/* Стили для контейнера каталога */
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 колонок одинаковой ширины */
+  gap: 20px;
+  justify-items: center; /* Центрируем карточки внутри ячеек */
+  padding: 0 20px 20px;
+  margin-left: 120px; /* Отступ слева, чтобы каталог не перекрывался с категориями */
+  margin-top: 120px; /* Отступ сверху */
+  margin-bottom: 20px;
+}
+
+/* Специфический стиль для категории all */
+.catalog.all {
+  margin-top: 430px; /* Увеличенный отступ сверху для категории all */
+}
+
+
+/* Стили кнопок категорий */
+.categories button {
+  padding: 10px 20px;
+  background-color: #F3F5F9;
+  color: black;
+  border: 1px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.categories button.active {
+  background-color: black;
+  color: white;
+}
+
+.categories button:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Стили карточки растения */
+.plant-card {
+  width: 180px;
+  background-color: #C0D9A6;
+  border-radius: 10px;
+
+  overflow: hidden;
+  text-align: center;
+}
+
+.plant-photo {
+  margin-top: 10px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px ;
+  cursor: pointer; /* Добавляем указатель при наведении на фото */
+}
+
+.plant-card h2 {
+  font-size: 18px;
+  margin-left: 10px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.plant-card p {
+  font-size: 16px;
+  margin-left: 10px;
+  text-align: left;
+  color: black;
+}
+
+/* Добавьте стили для кнопки "Remove from Cart", если необходимо */
+.catalog .plant-card .add-to-cart {
+  background-color: #F3F5F9;
+  color: black;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 150px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.catalog .plant-card .add-to-cart:hover {
+  background-color: black;
+  color: white;
+}

@@ -1,0 +1,38 @@
+/* Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #28a745;
+    color: white;
+    position: fixed; /* Закрепляем хедер вверху */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Обеспечивает, что хедер всегда будет поверх контента */
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    background-color: #218838;
+  }
+  

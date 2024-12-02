@@ -1,0 +1,63 @@
+.plant-detail-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px; /* Увеличиваем отступы снаружи */
+  gap: 40px; /* Увеличиваем отступ между картинкой и текстом */
+}
+
+.plant-photo-detail {
+  width: 250px; /* Уменьшаем размер картинки */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.plant-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 600px;
+  padding-left: 20px; /* Добавляем отступ слева для текста */
+}
+
+.plant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.plant-header h1 {
+  font-size: 24px;
+}
+
+.plant-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.plant-detail p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.add-to-cart {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 150px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+  background-color: #F3F5F9;
+  color: black;
+  border: 1px solid black;
+}
+

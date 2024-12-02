@@ -1,0 +1,109 @@
+.cart-items-container {
+  display: flex;
+  flex-direction: column;  /* Элементы располагаются вертикально */
+  max-height: 420px; /* Ограничиваем высоту контейнера */
+  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+  gap: 20px; /* Расстояние между элементами */
+}
+
+/* Стили для элемента в корзине */
+.cart-item {
+  display: flex;  /* Горизонтальное расположение картинки и текста */
+  align-items: center; /* Выравнивание по центру */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 600px; /* Ограничение ширины */
+  background-color: #F3F5F9; /* Легкий фон для карточек */
+  gap: 15px; /* Расстояние между картинкой и текстом */
+}
+
+/* Стили для изображения */
+.cart-item img {
+  height: 170px;
+  width: 150px; /* Ширина изображения */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Стили для контейнера с деталями */
+.cart-item .details {
+  display: flex;
+  flex-direction: column; /* Информация о растении будет вертикально */
+  justify-content: flex-start; /* Выравнивание по верху */
+  align-items: flex-start; /* Выравнивание по левому краю */
+  max-width: 300px; /* Ограничиваем ширину для информации */
+}
+
+/* Стили для заголовка */
+.cart-item h3 {
+  margin: 0;
+  font-size: 18px; /* Размер шрифта для названия */
+  white-space: nowrap; /* Ожидаем, что название не будет переноситься */
+  overflow: hidden; /* Скрываем часть текста, если он не помещается */
+  text-overflow: ellipsis; /* Добавляем многоточие, если текст не вмещается */
+}
+
+/* Стили для абзаца */
+.cart-item p {
+  margin: 5px 0 0 0; /* Убираем отступы сверху и снизу, добавляем небольшой отступ снизу */
+  font-size: 16px; /* Размер шрифта для цены */
+  font-weight: bold;
+}
+
+/* Стили для кнопки */
+.cart-item button {
+  margin-left: auto; /* Выравнивание кнопки по правому краю */
+  align-self: center; /* Центрирование кнопки по вертикали */
+  padding: 10px 20px;
+  background-color: #FF4545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px; /* Фиксированная ширина кнопки */
+  height: 40px; /* Фиксированная высота кнопки */
+  display: flex;
+  justify-content: center; /* Центрирование текста внутри кнопки */
+  align-items: center; /* Центрирование текста внутри кнопки */
+}
+
+/* Стили для кнопки при наведении */
+.cart-item button:hover {
+  background-color: red;
+}
+
+/* Стили для сводки корзины */
+.cart-summary {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column; /* Располагаем элементы вертикально */
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Стили для заголовка в сводке корзины */
+.cart-summary h3 {
+  margin: 0 0 10px 0; /* Добавляем отступ снизу */
+  font-size: 18px; /* Размер шрифта для общей цены */
+  white-space: nowrap; /* Ожидаем, что текст не будет переноситься */
+  overflow: hidden; /* Скрываем часть текста, если он не помещается */
+  text-overflow: ellipsis; /* Добавляем многоточие, если текст не вмещается */
+}
+
+/* Стили для кнопки в сводке корзины */
+.cart-summary button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Стили для кнопки при наведении в сводке корзины */
+.cart-summary button:hover {
+  background-color: #868686;
+  color: white;
+}

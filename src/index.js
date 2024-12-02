@@ -1,17 +1,29 @@
+// src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Catalog from './pages/catalog/Catalog';
+import PlantDetail from './pages/details/PlantDetail';
+import Cart from './pages/cart/Cart';
+import Profile from './pages/profile/Profile'; // Импортируем страницу профиля
+import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const Root = () => {
+  return (
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/plant/:id" element={<PlantDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} /> {/* Добавляем маршрут для профиля */}
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<Root />, document.getElementById('root'));
