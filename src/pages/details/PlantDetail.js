@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase-config';
-import { collection, doc, getDoc, addDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { FaStar } from 'react-icons/fa'; // Импортируем иконку звездочки
 import { useAuth } from '../../contexts/AuthContext';
+import { v4 as uuidv4 } from 'uuid';
 import './PlantDetail.css';
 
 const PlantDetail = () => {
@@ -26,9 +27,12 @@ const PlantDetail = () => {
 
   const handleAddToCart = async () => {
     if (currentUser) {
-      // Добавить в корзину
-      await addDoc(collection(db, 'cart'), {
-        plantId: id,
+      // Генерируем уникальный id для элемента корзины
+      const cartId = uuidv4(); // Генерация уникального cartId
+      // Добавить в корзину с использованием cartId как имени документа
+      await setDoc(doc(db, 'cart', cartId), {
+        id: cartId, // Используем сгенерированный cartId как ID документа
+        plantId: parseInt(id, 10), // Преобразуем plantId в int
         plantName: plant.name,
         plantPrice: plant.price,
         plantPhoto: plant.photo,
@@ -36,7 +40,7 @@ const PlantDetail = () => {
       });
       alert('Plant added to cart');
     } else {
-      // Если пользователь не авторизован, перенаправить на страницу входа
+      // Если пользователь не авторизован, показываем сообщение
       alert('Please log in to add to cart.');
     }
   };

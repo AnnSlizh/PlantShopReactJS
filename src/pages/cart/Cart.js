@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase-config';
-import { collection, getDocs, query, where, deleteDoc, doc, setDoc, addDoc } from 'firebase/firestore'; 
+import { collection, getDocs, query, where, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';
-import { v4 as uuidv4 } from 'uuid'; 
-import NavBar from '../../components/NavBar'; // Импортируем компонент NavBar
+import { v4 as uuidv4 } from 'uuid';
+import NavBar from '../../components/NavBar';
 import './Cart.css';
 
 const Cart = () => {
   const { currentUser } = useAuth();
   const [cartItems, setCartItems] = useState([]);
-  const [orderPlaced, setOrderPlaced] = useState(false); // Добавляем состояние для отслеживания заказа
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -25,44 +25,23 @@ const Cart = () => {
     fetchCartItems();
   }, [currentUser]);
 
-  const handleAddToCart = async (plant) => {
-    const cartId = uuidv4(); // Генерация уникального идентификатора для корзины
-    const cartItem = {
-      id: cartId, // Уникальный ID для корзины
-      plantId: plant.id,
-      plantName: plant.name,
-      plantPrice: plant.price,
-      plantPhoto: plant.photo,
-      userId: currentUser.uid,
-    };
-
-    try {
-      await setDoc(doc(db, 'cart', cartId), cartItem); // Добавляем новый элемент в Firestore
-      setCartItems(prevItems => [...prevItems, cartItem]); // Обновляем состояние корзины
-    } catch (error) {
-      console.error('Error adding item to cart: ', error);
-    }
-  };
-
   const handleRemoveFromCart = async (id) => {
     try {
-      console.log(`Attempting to remove item with id: ${id}`);  // Логирование перед удалением
-      await deleteDoc(doc(db, 'cart', id));  // Удаление элемента из Firestore
-      setCartItems(prevCartItems => prevCartItems.filter(item => item.id !== id));  // Обновление состояния корзины
-      console.log(`Removed item with id ${id} from cart`);  // Логирование успешного удаления
+      await deleteDoc(doc(db, 'cart', id));
+      setCartItems(prevCartItems => prevCartItems.filter(item => item.id !== id));
     } catch (error) {
-      console.error('Error removing item from cart: ', error);  // Логирование ошибки
+      console.error('Error removing item from cart: ', error);
     }
   };
 
   const handlePlaceOrder = async () => {
-    const purchaseId = uuidv4(); 
+    const purchaseId = uuidv4();
     const totalPrice = cartItems.reduce((acc, item) => acc + item.plantPrice, 0);
     const plantNames = cartItems.map(item => item.plantName);
 
     try {
       // Добавление данных о заказе в коллекцию 'purchases'
-      await addDoc(collection(db, 'purchases'), {
+      await setDoc(doc(db, 'purchases', purchaseId), {
         id: purchaseId,
         totalPrice,
         date: new Date(),
@@ -73,21 +52,21 @@ const Cart = () => {
       // Очистка корзины
       console.log('Placing order and clearing cart...');
       for (const item of cartItems) {
-        console.log(`Removing item with id: ${item.id}`);  // Логирование перед удалением
-        await deleteDoc(doc(db, 'cart', item.id));  // Удаление каждого элемента корзины из Firestore
+        console.log(`Removing item with id: ${item.id}`);
+        await deleteDoc(doc(db, 'cart', item.id));
       }
 
-      setCartItems([]);  // Очистка состояния корзины
-      setOrderPlaced(true);  // Устанавливаем состояние, что заказ был размещен
+      setCartItems([]);
+      setOrderPlaced(true);
       console.log('Cart cleared and order placed');
     } catch (error) {
-      console.error('Error placing order: ', error);  // Логирование ошибок
+      console.error('Error placing order: ', error);
     }
   };
 
   return (
     <div>
-      <NavBar /> {/* Добавляем NavBar на страницу */}
+      <NavBar />
       {orderPlaced ? (
         <p>Thank you for your purchase!</p>
       ) : (
@@ -95,7 +74,6 @@ const Cart = () => {
           <p>Your cart is empty.</p>
         ) : (
           <div>
-            {/* Контейнер для элементов корзины с вертикальной прокруткой */}
             <div className="cart-items-container">
               {cartItems.map(item => (
                 <div key={item.id} className="cart-item">

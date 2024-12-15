@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase/firebase-config';
-import { collection, getDocs, addDoc, query, where, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, query, where, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { useAuth } from '../../contexts/AuthContext';
@@ -65,7 +65,8 @@ const Catalog = () => {
         // Add to cart
         const cartId = uuidv4();
         try {
-          await addDoc(collection(db, 'cart'), {
+          await setDoc(doc(db, 'cart', cartId), {
+            id: cartId,
             plantId: plant.id,
             plantName: plant.name,
             plantPrice: plant.price,

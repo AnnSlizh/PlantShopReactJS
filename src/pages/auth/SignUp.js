@@ -1,8 +1,8 @@
-// SignIn.js
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebase-config';
-import './SignUp.css'; // Подключаем SignUp.css
+import { auth, db } from '../../firebase/firebase-config';
+import { setDoc, doc } from 'firebase/firestore';
+import './SignUp.css'; 
 
 const SignUp = ({ setUser, setError, navigate }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +10,18 @@ const SignUp = ({ setUser, setError, navigate }) => {
 
   const handleSignUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Добавляем информацию о пользователе в коллекцию users
+      await setDoc(doc(db, 'users', user.uid), {
+        email: email,
+        userId: user.uid,
+        password: password,
+        name: '',
+        surname: '',
+      });
+
       setUser(auth.currentUser);
       navigate('/catalog');
     } catch (err) {
@@ -20,7 +31,7 @@ const SignUp = ({ setUser, setError, navigate }) => {
 
   return (
     <div className="container">
-      <h1>Register</h1>
+      <h1>Sign Up</h1>
       <p>Create your new account</p>
       <input 
         type="email" 
@@ -35,7 +46,6 @@ const SignUp = ({ setUser, setError, navigate }) => {
         onChange={(e) => setPassword(e.target.value)} 
       />
       <button onClick={handleSignUp}>Sign Up</button>
-
     </div>
   );
 };

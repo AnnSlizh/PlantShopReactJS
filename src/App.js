@@ -11,7 +11,7 @@ import './App.css';
 const App = () => {
   const { currentUser } = useAuth();
   const [error, setError] = useState('');
-  const [isLogin, setIsLogin] = useState(true); // true = Login, false = Register
+  const [isLogin, setIsLogin] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const App = () => {
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin); // Переключаем между входом и регистрацией
-    setError(''); // Сбрасываем ошибку при переключении
+    setError(''); 
   };
 
   return (
